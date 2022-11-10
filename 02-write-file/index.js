@@ -10,7 +10,7 @@ const readline = require('readline').createInterface(stdin, stdout)
 console.log('Введите текст для записи в файл')
 
 readline.on('line', (data) => {
-  if (data.toLowerCase() !== '.exit') {
+  if (data.toLowerCase() !== 'exit') {
     recordedStream.write(data)
     console.log('Что-нибудь еще?')
   }
