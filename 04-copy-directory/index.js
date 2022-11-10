@@ -5,8 +5,19 @@ const wayOrigin = path.join(__dirname, 'files')
 const wayCopy = path.join(__dirname, 'files-copy')
 
 function copyDir () {
-  fs.mkdir(wayCopy, { recursive: true }, (err) => {
-    if (err) throw new Error()
+  fs.readdir(wayCopy, {withFileTypes: true}, (err, files) => {
+    if(!err) {
+      files.map(file => {
+        fs.unlink(path.join(wayCopy, file.name), (err) => {
+          if (err) throw new Error()
+        })
+      })
+    }
+    else {
+      fs.mkdir(wayCopy, { recursive: true }, (err) => {
+        if (err) throw new Error()
+      })
+    }
   })
   
   fs.readdir(wayOrigin, {withFileTypes : true}, (err, files) => {
